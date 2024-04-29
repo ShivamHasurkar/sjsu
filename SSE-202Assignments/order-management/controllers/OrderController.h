@@ -1,59 +1,23 @@
 #ifndef ORDERCONTROLLER_H
 #define ORDERCONTROLLER_H
 
-#include "../models/Order.h"
-#include <unordered_map>
-#include <memory>
+#include "Order.h"
+#include <vector>
 
 class OrderController
 {
 public:
-    OrderController() {}
+    OrderController();
 
-    int createOrder()
-    {
-        int id = nextOrderID++;
-        orders.emplace(id, std::make_unique<Order>());
-        return id;
-    }
-
-    void addItemToOrder(int orderID, const OrderItem &item)
-    {
-        if (orders.find(orderID) != orders.end())
-        {
-            orders[orderID]->addItem(item);
-        }
-    }
-
-    void removeItemFromOrder(int orderID, const std::string &itemName)
-    {
-        if (orders.find(orderID) != orders.end())
-        {
-            orders[orderID]->removeItem(itemName);
-        }
-    }
-
-    void updateItemInOrder(int orderID, const std::string &itemName, int newQuantity)
-    {
-        if (orders.find(orderID) != orders.end())
-        {
-            orders[orderID]->updateItemQuantity(itemName, newQuantity);
-        }
-    }
-
-    void finalizeOrder(int orderID)
-    {
-        if (orders.find(orderID) != orders.end())
-        {
-            orders[orderID]->closeOrder();
-        }
-    }
+    void createOrder();
+    void addItemToOrder(int orderID, const OrderItem &item);
+    void removeItemFromOrder(int orderID, const std::string &itemName);
+    void updateItemInOrder(int orderID, const std::string &itemName, int newQuantity);
+    void closeOrder(int orderID);
+    std::vector<Order>::iterator findOrder(int orderID);
 
 private:
-    std::unordered_map<int, std::unique_ptr<Order>> orders;
-    static int nextOrderID;
+    std::vector<Order> orders; // List of all orders managed by the controller
 };
-
-int OrderController::nextOrderID = 1;
 
 #endif // ORDERCONTROLLER_H

@@ -6,23 +6,22 @@
 class OrderItem
 {
 public:
-    OrderItem(const std::string &name, double price, int qty)
-        : menuItemName(name), unitPrice(price), quantity(qty) {}
+    // Constructor
+    OrderItem(const std::string &name, double price, int qty);
 
-    void updateQuantity(int newQuantity)
-    {
-        quantity = newQuantity;
-    }
+    // Method to update the item quantity
+    void updateQuantity(int newQuantity);
 
-    std::string getMenuItemName() const { return menuItemName; }
-    double getUnitPrice() const { return unitPrice; }
-    int getQuantity() const { return quantity; }
-    double getTotalPrice() const { return unitPrice * quantity; }
+    // Getters
+    std::string getMenuItemName() const;
+    double getUnitPrice() const;
+    int getQuantity() const;
+    double getTotalPrice() const;
 
 private:
-    std::string menuItemName;
-    double unitPrice;
-    int quantity;
+    std::string menuItemName; // Name of the menu item
+    double unitPrice;         // Price per unit of the item
+    int quantity;             // Quantity of the item ordered
 };
 
 #endif // ORDERITEM_H

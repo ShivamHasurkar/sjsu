@@ -1,43 +1,22 @@
 #ifndef ORDERMANAGEMENTFACADE_H
 #define ORDERMANAGEMENTFACADE_H
 
-#include "../controllers/OrderController.h"
+#include "OrderController.h"
+#include "OrderItem.h"
 
 class OrderManagementFacade
 {
 public:
-    OrderManagementFacade() : controller() {}
+    OrderManagementFacade();
 
-    int createOrder()
-    {
-        return controller.createOrder();
-    }
-
-    void addItemToOrder(int orderID, const std::string &itemName, double price, int quantity)
-    {
-        OrderItem item(itemName, price, quantity);
-        controller.addItemToOrder(orderID, item);
-    }
-
-    void removeItemFromOrder(int orderID, const std::string &itemName)
-    {
-        controller.removeItemFromOrder(orderID, itemName);
-    }
-
-    void updateItemInOrder(int orderID, const std::string &itemName, int quantity)
-    {
-        controller.updateItemInOrder(orderID, itemName, quantity);
-    }
-
-    void finalizeOrder(int orderID)
-    {
-        controller.finalizeOrder(orderID);
-    }
-
-    // Add other methods as necessary to interact with the menu and billing subsystems.
+    void createOrder();
+    void addItemToOrder(int orderID, const std::string &itemName, double price, int quantity);
+    void removeItemFromOrder(int orderID, const std::string &itemName);
+    void updateItemInOrder(int orderID, const std::string &itemName, int newQuantity);
+    void closeOrder(int orderID);
 
 private:
-    OrderController controller;
+    OrderController orderController; // The OrderController instance to handle order management
 };
 
 #endif // ORDERMANAGEMENTFACADE_H
